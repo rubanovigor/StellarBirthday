@@ -31,136 +31,85 @@ import android.widget.DatePicker.OnDateChangedListener;
 
 public class MainActivity extends Activity {
 	Uri fileUri; 
-	private DatePicker dpResult;
-	private Button changeDate;
-	private int year, month, day;
-	static final int DATE_PICKER_ID = 1111; 
-//	final Calendar c;
-	private TextView Output;
+	private DatePicker birthdayDatePicker;
+	private TextView tvDaysOld, tvBirthdayStarName;
+	public static String BirthdayStarName = "Toliman";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+
+		tvDaysOld = (TextView) findViewById(R.id.tvDaysOld);
+		tvBirthdayStarName = (TextView) findViewById(R.id.tvBirthdayStarName);
+		birthdayDatePicker = (DatePicker) findViewById(R.id.date_picker);
 		
-		changeDate = (Button) findViewById(R.id.changeDate);
-		Output = (TextView) findViewById(R.id.userInfoTextView);
-		dpResult = (DatePicker) findViewById(R.id.date_picker);
+		Stellar.iniStarsArray();
 		
-        // -- get current date by calender
-        final Calendar c = Calendar.getInstance();
-        year  = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day   = c.get(Calendar.DAY_OF_MONTH);
-        
-        // Show current date
-        changeDate.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" "));
-        
-        
-        // Button listener to show date picker dialog   
-        changeDate.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 
-                // On button click show datepicker dialog 
-                showDialog(DATE_PICKER_ID);
- 
-            }
- 
-        });
-     
         // --DatePicker listener
         Calendar today = Calendar.getInstance();
-        dpResult.init(
-        	    today.get(Calendar.YEAR), 
-        	    today.get(Calendar.MONTH), 
-        	    today.get(Calendar.DAY_OF_MONTH), 
-        	   
-        	    new OnDateChangedListener(){
+        birthdayDatePicker.init(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH), new OnDateChangedListener(){
         	     @Override
         	     public void onDateChanged(DatePicker view, 
-        	       int year, int monthOfYear,int dayOfMonth) {
-//        	      Toast.makeText(getApplicationContext(), 
-//        	        "onDateChanged", Toast.LENGTH_SHORT).show();
-        	      
-        	   // -- get difference in days
-                  Calendar thatDay = Calendar.getInstance();
-                  thatDay.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                  thatDay.set(Calendar.MONTH,monthOfYear); // 0-11 so 1 less
-                  thatDay.set(Calendar.YEAR, year);
-
-                  Calendar today = Calendar.getInstance();
-
-                  long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
-                  long days = diff / (24 * 60 * 60 * 1000);
-                  Output.setText(String.valueOf(days));
+        	    		  int year, int monthOfYear,int dayOfMonth) {        	    	 	 		        		  
+        	    	 	  // -- get difference in days
+		                  Calendar thatDay = Calendar.getInstance();
+		                  thatDay.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+		                  thatDay.set(Calendar.MONTH,monthOfYear); // 0-11 so 1 less
+		                  thatDay.set(Calendar.YEAR, year);
+		
+		                  Calendar today = Calendar.getInstance();
+		                  long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
+		                  
+		                  long days = diff / (24 * 60 * 60 * 1000);
+		                  tvDaysOld.setText(String.valueOf(days));
                   
-//        	      Output.setText(
+		                  BirthdayStarName = Stellar.getStellarBirthdayStarName(days);
+		                  
+
+		                  if(Stellar.DaysToStellarBirthday == 0){
+		                	  tvBirthdayStarName.setText("Stellar Birthday '" + BirthdayStarName+"' is " + "today");
+		                  }
+		                  if(Stellar.DaysToStellarBirthday == 1){
+		                	  tvBirthdayStarName.setText("Next Stellar Birthday '" + BirthdayStarName+"' in " +
+		                		  			    	 String.valueOf(Math.round(Stellar.DaysToStellarBirthday)) + " day");
+		                  }
+		                  if(Stellar.DaysToStellarBirthday > 1){
+		                	  tvBirthdayStarName.setText("Next Stellar Birthday '" + BirthdayStarName+"' in " +
+		                		  			    	 String.valueOf(Math.round(Stellar.DaysToStellarBirthday)) + " days");
+		                  }
+		                  
+		                  if(Stellar.endOfStarsList){
+		                	  tvBirthdayStarName.setText("please select earlierst birthday date");
+		                  }
+		                  if(days<0){
+		                	  tvBirthdayStarName.setText("you have not born yet");
+		                  }
+
+		                  
+//        	      tvDaysOld.setText(
 //        	        "Year: " + year + "\n" +
 //        	        "Month of Year: " + monthOfYear+1 + "\n" +
 //        	        "Day of Month: " + dayOfMonth);
         	      
-        	     }});
+        	     }
+        	     
+        	}
+        
+        );
         
         
 	}
 
     
-    
-	@Override
-	protected Dialog onCreateDialog(int id) {
-	        switch (id) {
-	        case DATE_PICKER_ID:
-	             
-	            // open datepicker dialog. 
-	            // set date picker for current date 
-	            // add pickerListener listner to date picker
-	            return new DatePickerDialog(this, pickerListener, year, month,day);
-	        }
-	        return null;
-	}	
-	
-    private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
-    	 
-        // when dialog box is closed, below method will be called.
-        @Override
-        public void onDateSet(DatePicker view, int selectedYear,
-                int selectedMonth, int selectedDay) {
-             
-            year  = selectedYear;
-            month = selectedMonth;
-            day   = selectedDay;
- 
-            // Show selected date 
-            changeDate.setText(new StringBuilder().append(month + 1)
-                    .append("-").append(day).append("-").append(year)
-                    .append(" "));
-            
-            // -- get difference in days
-            Calendar thatDay = Calendar.getInstance();
-            thatDay.set(Calendar.DAY_OF_MONTH,day);
-            thatDay.set(Calendar.MONTH,month); // 0-11 so 1 less
-            thatDay.set(Calendar.YEAR, year);
 
-            Calendar today = Calendar.getInstance();
-
-            long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
-            long days = diff / (24 * 60 * 60 * 1000);
-            Output.setText(String.valueOf(days));
-           }
-    };
-	
-
-	// -- start google skymap
+	/** -- start google skymap */
 	public void onClick_start_googleskymap (View v)
 	{	
 		Intent i = new Intent(Intent.ACTION_SEARCH);
 		i.setPackage("com.google.android.stardroid");
-		i.putExtra(SearchManager.QUERY, "vega");
+		i.putExtra(SearchManager.QUERY, BirthdayStarName);
 		
 		
 		// Verify it resolves
@@ -181,7 +130,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	// -- start stellar info page
+	/** -- start stellar info page */
 	public void onClick_start_stellarinfo (View v)
 	{
 		Intent intent = new Intent(this, StellarInfo.class);
@@ -189,7 +138,7 @@ public class MainActivity extends Activity {
 		
 	}
 	
-	// -- start stellar info page
+	/**  -- start stellar info page*/
 	public void onClick_share_stellarinfo (View v)
 	{
 		

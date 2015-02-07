@@ -22,7 +22,7 @@ public class StellarInfo extends Activity{
 		
 		// -- get BirthdayStar name based on Birthday Date from Facebook
 			// add logic here
-			BirthdayStar = "sirius";
+//			BirthdayStar = "sirius";
 		// -- end
 
 		
@@ -32,7 +32,7 @@ public class StellarInfo extends Activity{
         webView.getSettings().setDisplayZoomControls(true);
         
         // -- bind WebAppInterface class to the JavaScript that runs in WebView with addJavascriptInterface()
-        WebAppInterface.setValue(BirthdayStar);
+        WebAppInterface.setValue(MainActivity.BirthdayStarName);
 		webView.addJavascriptInterface(new WebAppInterface(this), "Android");
 			// -- load JavaScript located in "asset" folder
         webView.loadUrl("file:///android_asset/stars_javascript.html");
