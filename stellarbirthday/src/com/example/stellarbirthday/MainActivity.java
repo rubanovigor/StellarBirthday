@@ -11,6 +11,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
@@ -32,17 +35,22 @@ import android.widget.DatePicker.OnDateChangedListener;
 public class MainActivity extends Activity {
 	Uri fileUri; 
 	private DatePicker birthdayDatePicker;
-	private TextView tvDaysOld, tvBirthdayStarName;
-	public static String BirthdayStarName = "Toliman";
-	
+	private TextView tvDaysOld, tvBirthdayStarName, tvBirthdayStarInfo;
+	public static String BirthdayStarName = "Rigel";
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
+//		RelativeLayout layout =(RelativeLayout)findViewById(R.id.background);
+//		layout.setBackgroundResource(R.drawable.skymap3);
+
+		
 		tvDaysOld = (TextView) findViewById(R.id.tvDaysOld);
 		tvBirthdayStarName = (TextView) findViewById(R.id.tvBirthdayStarName);
+		tvBirthdayStarInfo = (TextView) findViewById(R.id.tvBirthdayStarInfo);
 		birthdayDatePicker = (DatePicker) findViewById(R.id.date_picker);
 		
 		Stellar.iniStarsArray();
@@ -69,22 +77,29 @@ public class MainActivity extends Activity {
 		                  
 
 		                  if(Stellar.DaysToStellarBirthday == 0){
-		                	  tvBirthdayStarName.setText("Stellar Birthday '" + BirthdayStarName+"' is " + "today");
+		                	  tvBirthdayStarName.setText("Stellar Birthday '" + BirthdayStarName+"' is " + "today" );
+		                	  tvBirthdayStarInfo.setText(Stellar.StarInfo[Stellar.index]);
 		                  }
 		                  if(Stellar.DaysToStellarBirthday == 1){
-		                	  tvBirthdayStarName.setText("Next Stellar Birthday '" + BirthdayStarName+"' in " +
+		                	  tvBirthdayStarName.setText("Stellar Birthday '" + BirthdayStarName+"' in " +
 		                		  			    	 String.valueOf(Math.round(Stellar.DaysToStellarBirthday)) + " day");
+		                	  tvBirthdayStarInfo.setText(Stellar.StarInfo[Stellar.index]);
 		                  }
 		                  if(Stellar.DaysToStellarBirthday > 1){
-		                	  tvBirthdayStarName.setText("Next Stellar Birthday '" + BirthdayStarName+"' in " +
+		                	  tvBirthdayStarName.setText("Stellar Birthday '" + BirthdayStarName+"' in " +
 		                		  			    	 String.valueOf(Math.round(Stellar.DaysToStellarBirthday)) + " days");
+		                	  tvBirthdayStarInfo.setText(Stellar.StarInfo[Stellar.index]);
 		                  }
 		                  
-		                  if(Stellar.endOfStarsList){
+		                  if(Stellar.DaysToStellarBirthday < 0){
 		                	  tvBirthdayStarName.setText("please select earlierst birthday date");
 		                  }
-		                  if(days<0){
+		                  if(days<=0){
 		                	  tvBirthdayStarName.setText("you have not born yet");
+		                  }
+		                  if(days==0){
+		                	  tvBirthdayStarName.setText(BirthdayStarName);
+		                	  tvBirthdayStarInfo.setText(Stellar.StarInfo[Stellar.index]);
 		                  }
 
 		                  
@@ -108,7 +123,9 @@ public class MainActivity extends Activity {
 	public void onClick_start_googleskymap (View v)
 	{	
 		Intent i = new Intent(Intent.ACTION_SEARCH);
+//		Intent i = new Intent(Intent.ACTION_DEFAULT);
 		i.setPackage("com.google.android.stardroid");
+//		i.setPackage("com.escapistgames.starchart"); 		
 		i.putExtra(SearchManager.QUERY, BirthdayStarName);
 		
 		
@@ -117,6 +134,7 @@ public class MainActivity extends Activity {
 		List<ResolveInfo> activities = packageManager.queryIntentActivities(i, 0);
 		boolean isIntentSafe = activities.size() > 0;
 
+//		startActivity(i);
 		// Start an activity if it's safe
 		if (isIntentSafe) {
 			startActivity(i);
@@ -144,7 +162,7 @@ public class MainActivity extends Activity {
 		
 		/* Get a File for the selected file name. Assume that the file names are in the mImageFilename array */
 //        File requestFile = new File(mImageFilename[position]);
-        File requestFile = new File("vega1.jpg"); 
+        File requestFile = new File("logo.png"); 
 //        File filePath = getFileStreamPath("vega1.jpg");
         /* Most file-related method calls need to be in try-catch blocks */
         // Use the FileProvider to get a content URI
