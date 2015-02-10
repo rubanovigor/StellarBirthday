@@ -13,12 +13,12 @@ public class Stellar {
 	public static float DaysToStellarBirthday = 0;
 	
     /** create 2D array with StarName's and Distance in light years, days */
-    static void iniStarsArray() {
+    static void iniStarsArray() {  
 //    	DistanceInDays[0][0] = 1f; DistanceInDays[0][1] = 4.0f;	 StarNames[0] = "Toliman";
 //    	DistanceInDays[1][0] = 2f; DistanceInDays[1][1] = 6.0f;	 StarNames[1] = "Vega";
 //    	DistanceInDays[2][0] = 2f; DistanceInDays[2][1] = 10.0f; StarNames[2] = "Sirius";
     	DistanceInDays[0] = 0f;	 	 StarNames[0] = "Earth";     	StarInfo[0] = "home planet";
-    	DistanceInDays[1] = 1604f;	 StarNames[1] = "Rigel";		StarInfo[1] = "Alpha Centauri is the sun's closest neighbor";
+    	DistanceInDays[1] = 1604f;	 StarNames[1] = "Alpha Centauri";		StarInfo[1] = "Alpha Centauri is the sun's closest neighbor";
     	DistanceInDays[2] = 3139f;	 StarNames[2] = "Sirius";		StarInfo[2] = "Sirius is the brightest star in the Earth's night sky";
     	DistanceInDays[3] = 4183f;   StarNames[3] = "Procyon";		StarInfo[3] = "Procyon is a hound belonging to Erigone, daughter of Icarius";
     	DistanceInDays[4] = 6105f;	 StarNames[4] = "Altair";		StarInfo[4] = "Altair is an abbreviation of the Arabic phrase an-nasr - the 'flying eagle'";

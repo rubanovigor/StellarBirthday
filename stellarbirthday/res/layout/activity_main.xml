@@ -103,8 +103,9 @@
          android:layout_alignParentBottom="true"
          android:layout_toRightOf="@+id/icon_googleskymap"
          android:layout_marginBottom="18dp"
-         android:background="@drawable/info_b2"
+         android:background="@drawable/ic_info"
          android:gravity="center"
+         android:onClick="onClick_start_aboutstars"
          android:visibility="visible"  />
 
 </RelativeLayout>

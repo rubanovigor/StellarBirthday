@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 		                  long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
 		                  
 		                  long days = diff / (24 * 60 * 60 * 1000);
-		                  tvDaysOld.setText(String.valueOf(days));
+		                  tvDaysOld.setText(String.valueOf(days)+" ldbb");
                   
 		                  BirthdayStarName = Stellar.getStellarBirthdayStarName(days);
 		                  
@@ -156,6 +156,14 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	/** -- start stellar info page */
+	public void onClick_start_aboutstars (View v)
+	{
+		tvBirthdayStarName.setText("");
+		Intent intent = new Intent(this, AboutStars.class);
+		startActivity(intent);
+		
+	}
 	/**  -- start stellar info page*/
 	public void onClick_share_stellarinfo (View v)
 	{
@@ -207,5 +215,6 @@ public class MainActivity extends Activity {
 //		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.chooser_title)));
 	}
 
+	
 		
 }

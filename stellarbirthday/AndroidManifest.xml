@@ -37,6 +37,18 @@
 	            android:value="com.example.stellarbirthday.MainActivity" />
 	    </activity> 
 	    
+        <activity
+        	android:name=".AboutStars"
+        	android:theme="@android:style/Theme.Translucent"
+        	android:label="@string/app_name"
+        	android:screenOrientation="portrait" 
+        	android:background="@android:color/transparent"
+        	android:parentActivityName="com.example.stellarbirthday.MainActivity" >
+	        <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="com.example.stellarbirthday.MainActivity" />
+	    </activity> 
+	    
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.stellarbirthday.fileprovider"
