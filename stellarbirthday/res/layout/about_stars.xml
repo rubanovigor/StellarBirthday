@@ -10,7 +10,7 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Having discovering the secret of hyperspace travel, humanity dedicates its first interstellar mission to a successful landing on a planet of Alpha Centauri"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#FFFFFF"
             android:gravity="center"

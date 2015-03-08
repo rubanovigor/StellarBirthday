@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Canvas;
@@ -37,7 +38,8 @@ public class MainActivity extends Activity {
 	private DatePicker birthdayDatePicker;
 	private TextView tvDaysOld, tvBirthdayStarName, tvBirthdayStarInfo;
 	public static String BirthdayStarName = "Rigel";
-	 
+	public static long days=0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,6 +54,9 @@ public class MainActivity extends Activity {
 		tvBirthdayStarName = (TextView) findViewById(R.id.tvBirthdayStarName);
 		tvBirthdayStarInfo = (TextView) findViewById(R.id.tvBirthdayStarInfo);
 		birthdayDatePicker = (DatePicker) findViewById(R.id.date_picker);
+		
+		tvBirthdayStarName.setVisibility(View.VISIBLE);
+		tvBirthdayStarInfo.setVisibility(View.VISIBLE);
 		
 		Stellar.iniStarsArray();
 		
@@ -70,8 +75,8 @@ public class MainActivity extends Activity {
 		                  Calendar today = Calendar.getInstance();
 		                  long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
 		                  
-		                  long days = diff / (24 * 60 * 60 * 1000);
-		                  tvDaysOld.setText(String.valueOf(days)+" ldbb");
+		                  days = diff / (24 * 60 * 60 * 1000);
+//		                  tvDaysOld.setText(String.valueOf(days)+"  ld");
                   
 		                  BirthdayStarName = Stellar.getStellarBirthdayStarName(days);
 		                  
@@ -159,7 +164,8 @@ public class MainActivity extends Activity {
 	/** -- start stellar info page */
 	public void onClick_start_aboutstars (View v)
 	{
-		tvBirthdayStarName.setText("");
+		tvBirthdayStarName.setVisibility(View.INVISIBLE);
+		tvBirthdayStarInfo.setVisibility(View.INVISIBLE); 
 		Intent intent = new Intent(this, AboutStars.class);
 		startActivity(intent);
 		
@@ -215,6 +221,13 @@ public class MainActivity extends Activity {
 //		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.chooser_title)));
 	}
 
-	
+	@Override
+    public void onResume() {        
+        super.onResume();
+//        Log.v(TAG, "inside onResume");  
+        tvBirthdayStarName.setVisibility(View.VISIBLE);
+        tvBirthdayStarInfo.setVisibility(View.VISIBLE); 
+				
+    }  
 		
 }

@@ -9,6 +9,7 @@ public class Stellar {
 	public static float[] DistanceInDays= new float[NumberOfStars];
 	public static String[] StarNames= new String[NumberOfStars];
 	public static String[] StarInfo= new String[NumberOfStars];
+	public static String[] StarFunnyInfo= new String[NumberOfStars];
 	public static int index = 0;
 	public static float DaysToStellarBirthday = 0;
 	
@@ -37,7 +38,26 @@ public class Stellar {
     	DistanceInDays[17] = 26990f; StarNames[17] = "Unukalhai";	StarInfo[17] = "This star is radiating about 38 times the luminosity of the Sun";
     	DistanceInDays[18] = 27388f; StarNames[18] = "Alphekka";	StarInfo[18] = "The name Alphecca is Arabic, short for 'the bright of the broken'";
      	
-    	
+    	StarFunnyInfo[0] = "Earth, also called the world and, less frequently, Gaia, (or Terra in some works of science fiction) is the third planet from the Sun, the densest planet in the Solar System, the largest of the Solar System's four terrestrial planets, and the only astronomical object known to accommodate life.";
+    	StarFunnyInfo[1] = "Having discovering the secret of hyperspace travel, humanity dedicates its first interstellar mission to a successful landing on a planet of Alpha Centauri.";
+    	StarFunnyInfo[2] = "Galactic archaeologist Bel Arvardin in his dissertation: Between 800–900 of the Galactic Era, the Sirius system was one of the ten most populous in the Galaxy.";
+    	StarFunnyInfo[3] = "The Procyon system has three inhabited planets: Osiris, an arid world whose saurian inhabitants are sentimental, rapaciously capitalistic, and capable of mind control; Isis, inhabited by a species resembling a cross 'between an elephant and a dachshund'; and Thoth, a wet planet whose natives are amoral and anarchic.";
+    	StarFunnyInfo[4] = "A giant planet that will plunge into the Sun 'with the mass of fifteen Jupiters' has been launched toward the Solar System by the Firstborn intelligences of the Altair system.";
+    	StarFunnyInfo[5] = "Vega was the capital of the Vega Province in the Galactic Empire, one of the wealthiest provinces in the entire Galaxy. Vega exported was tobacco, of notably high quality.";
+    	StarFunnyInfo[6] = "Fomalhaut is the home of the god Cthugha, who resembles a giant ball of fire.";
+    	StarFunnyInfo[7] = "Pollux has a single permanent settlement, primarily engaged in mining and refining operations.";
+    	StarFunnyInfo[8] = "Denebola is used for the name of three United States navy ships: USS Denebola (AD-12), USS Denebola (AF-56) and USNS Denebola (T-AKR-289).";
+    	StarFunnyInfo[9] = "Arcturus is a capital of the Sirius Sector in the Galactic Empire.";
+    	StarFunnyInfo[10] = "Capella has many moon-based colonies and space stations orbiting the brown dwarf nearest to the primary star. Despite having several starports, this system has a population of less than 10,000 people.";
+    	StarFunnyInfo[11] = "Tékumel is planetary system of Rasalhague  first settled by humans and several other alien species about 60,000 years in the future.";
+    	StarFunnyInfo[12] = "USS Alderamin (AK-116) was a United States Navy Crater class cargo ship named after the star.";
+    	StarFunnyInfo[13] = "Castor and Pollux are the two 'heavenly twin' stars that give the constellation Gemini (meaning twins in Latin) its name.";
+    	StarFunnyInfo[14] = "A receptionist at the Traveler's Inn Daswell Tippin was born at Svengay, on Caph IV. A lively little world; have you ever visited there?";
+    	StarFunnyInfo[15] = "The other name of Hamal, Hamul, is used for the name of United States navy ship, USS Hamul (AD-20).";
+    	StarFunnyInfo[16] = "Aldebaran is known by alcoholic drink of Aldebaran whiskey, as Data describe it 'It is... it is... It is green.'";
+    	StarFunnyInfo[17] = "Unukalhai is the home sun of the Hegléth, or Swamp Folk.";
+    	StarFunnyInfo[18] = "Alphecca  as the home  of the Alpheccan civilization, which rarely leaves its home system.";
+
     }
     
     /** get birthday StarName based on "days old" */
@@ -78,67 +98,47 @@ public class Stellar {
 	    } while(i<NumberOfStars); 
 	    return StarNames[index];
 	    
-//	    return StarNames[index];
+    }
+    
+    /** get birthday StarName based on "days old" */
+    static String getStellarBirthdayStarFunnyInfo(long DaysOld) {
+    	int i=0;
+	    if(DaysOld<=0){
+	    	index = 0;
+        }else
+        	
+	    do{
+	    	if(i == NumberOfStars-1){
+	    		if(DaysOld == DistanceInDays[i]){
+		        	index = i;
+		        	i=NumberOfStars;
+		        	DaysToStellarBirthday = 0;
+		        	return StarNames[index];
+		        }else {
+		        	DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
+		        	i=NumberOfStars;
+		        	return "";
+		        }
+		        	
+	    	}else{
+		        if(DaysOld == DistanceInDays[i]){
+		        	index = i;
+		        	i=NumberOfStars;
+		        	DaysToStellarBirthday = 0;
+		        }else
+		        	if(DaysOld > DistanceInDays[i] && DaysOld < DistanceInDays[i+1]){
+		        		index = i+1;
+		        		i=NumberOfStars;
+		        		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
+		        	} else i++;
 
-    	// -- exact match
-//	  	if (LocalIndex>=0){
-//		  		index = LocalIndex; DaysToStellarBirthday = DistanceInDays[index] - DaysOld;	
-//		  		if(index<NumberOfStars-1){
-//		  			index = index + 1;
-//		  			endOfStarsList = false;
-//			  		return StarNames[index-1];
-//		  		}else{  
-//			  		if(DistanceInDays[NumberOfStars-1]<DaysOld){endOfStarsList = true;}
-//			  		else{	endOfStarsList = false;}
-//			  		
-//			  		return StarNames[index];
-//		  		}
-//		  				  			
-//
-//	  	}else{	  
-//	  		if(DistanceInDays[NumberOfStars-1]<DaysOld){endOfStarsList = true;
-//	  		}else{	endOfStarsList = false;}
-//	  		
-//		  	if (index>0 && (DistanceInDays[index-1] - DaysOld)>0){
-//		  		index = index-1;
-//		  		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
-//		  		return StarNames[index];
-//		  	}else{
-//		  		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
-//		  		return StarNames[index];
-//		  	}	
-//
-//	  	} 
-	  	
-	  	
-//	  	// -- no exact match, taking closest star
-//	  	if (LocalIndex<0 && index<NumberOfStars-1){
-//	  		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
-//	  		return StarNames[index];
-//	  	}	  	
-//	  	// -- if end of the Stars list reached
-//	  		// -- going to the history
-//	  	if (LocalIndex<0 && index==NumberOfStars-1 && (DaysOld - DistanceInDays[index])>0){
-//	  		DaysToStellarBirthday = -2;
-//	  		return StarNames[index];
-//	  	}
-//	  		// -- going to the present
-//	  	if (LocalIndex<0 && index==NumberOfStars-1 && (DaysOld - DistanceInDays[index])<0 ){
-//	  		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
-//	  		return StarNames[index];
-//	  	}
-	  		// -- not born yet
-//	  	if (LocalIndex<0 && DaysOld<0){
-//	  		index = 0;
-//	  		DaysToStellarBirthday = DistanceInDays[index] - DaysOld;
-//	  		return StarNames[index];
-//	  	}
-	  
-    	
-//        return "Toliman";
-//    	if (LocalIndex>=0){
-//    		return StarNames[index];
-//    	} else
-//    		return "";
+	    	}
+	        
+	        
+	    } while(i<NumberOfStars); 
+	    	    
+	    return StarFunnyInfo[index];
+	    	  	
+
     }
 }
