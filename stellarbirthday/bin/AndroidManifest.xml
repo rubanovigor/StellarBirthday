@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stellarbirthday"
+    package="com.aiworker.stellarbirthday"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.aiworker.stellarbirthday.MainActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar"
             android:screenOrientation="portrait"  >
@@ -26,24 +26,24 @@
         </activity>
         
         <activity
-        	android:name=".StellarInfo"
+        	android:name="com.aiworker.stellarbirthday.StellarInfo"
         	android:theme="@android:style/Theme.Translucent"
         	android:label="@string/app_name"
         	android:screenOrientation="portrait" 
         	android:background="@android:color/transparent"
-        	android:parentActivityName="com.example.stellarbirthday.MainActivity" >
+        	android:parentActivityName="com.aiworker.stellarbirthday.MainActivity" >
 	        <meta-data
 	            android:name="android.support.PARENT_ACTIVITY"
 	            android:value="com.example.stellarbirthday.MainActivity" />
 	    </activity> 
 	    
         <activity
-        	android:name=".AboutStars"
+        	android:name="com.aiworker.stellarbirthday.AboutStars"
         	android:theme="@android:style/Theme.Translucent"
         	android:label="@string/app_name"
         	android:screenOrientation="portrait" 
         	android:background="@android:color/transparent"
-        	android:parentActivityName="com.example.stellarbirthday.MainActivity" >
+        	android:parentActivityName="com.aiworker.stellarbirthday.MainActivity" >
 	        <meta-data
 	            android:name="android.support.PARENT_ACTIVITY"
 	            android:value="com.example.stellarbirthday.MainActivity" />
